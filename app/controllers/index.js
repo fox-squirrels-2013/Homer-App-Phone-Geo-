@@ -32,17 +32,24 @@ locationModule = {
 	}
 };
 
+var locationHelper = {
+	queryParser: function(lat, long){
+		return "latitude=" + phoneLatitude + "&longitude=" + phoneLongitude;
+	}
+}
+
 var sendGeocode = {
 	xhr : Ti.Network.createHTTPClient(),
-	api_url : "www.google.com",
+	api_url : "www.google.com" + "/stores.json?",
 	sendLocation : function(phoneLatitude, phoneLongitude) {
-		sendGeocode.xhr.open('POST', sendGeocode.api_url);
+		url = sendGeocode.api_url + locationHelper(phoneLatitude, phoneLongitude);
+		sendGeocode.xhr.open('GET', url);
 		sendGeocode.xhr.send({
 			latitude : phoneLatitude,
 			longitude : phoneLongitude
-		})
+		});
 		sendGeocode.xhr.onload = function(e) {
-			alert(e)
+			alert(e);
 		};
 		sendGeocode.xhr.onerror = function(e) {
 			alert("There be errors!")
@@ -51,4 +58,4 @@ var sendGeocode = {
 };
 
 
-$.index.open(); 
+$.index.open();
