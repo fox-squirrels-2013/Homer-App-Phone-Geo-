@@ -2,7 +2,7 @@ function doClick(e) {
 	locationModule.getLocation();
 	// alert(locationModule.fakeLocation);
 	// sendGeocode.sendLocation(locationModule.fakeLocation.latitude, locationModule.fakeLocation.longitude)
-	alert(locationModule.lastLocation.latitude)
+	alert("locationmodule " + locationModule.lastLocation.latitude) //
 	sendGeocode.sendLocation(locationModule.lastLocation.latitude, locationModule.lastLocation.longitude)
 };
 
@@ -21,9 +21,9 @@ locationModule = {
 					Ti.API.error('Error: ' + e.error);
 				}
 				else {
-					lastLocation.longitude = e.coords.longitude
-					lastLocation.latitude = e.coords.latitude
-					alert(e.coords);
+					locationModule.lastLocation.longitude = e.coords.longitude
+					locationModule.lastLocation.latitude = e.coords.latitude
+          alert("e.coords: " + e.coords);
 				}
 			})
 		} else {

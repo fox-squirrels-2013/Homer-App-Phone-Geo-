@@ -1,7 +1,8 @@
 function Controller() {
     function doClick() {
-        alert(locationModule.fakeLocation);
-        sendGeocode.sendLocation(locationModule.fakeLocation.latitude, locationModule.fakeLocation.longitude);
+        locationModule.getLocation();
+        alert("locationmodule " + locationModule.lastLocation.latitude);
+        sendGeocode.sendLocation(locationModule.lastLocation.latitude, locationModule.lastLocation.longitude);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -28,11 +29,21 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     locationModule = {
+        lastLocation: {
+            latitude: 0,
+            longitude: 0,
+            speed: 0,
+            timestamp: 1385426498331
+        },
         getLocation: function() {
             if (Ti.Geolocation.locationServicesEnabled) {
                 Titanium.Geolocation.purpose = "Get Current Location";
                 Titanium.Geolocation.getCurrentPosition(function(e) {
-                    e.error ? Ti.API.error("Error: " + e.error) : alert(e.coords);
+                    if (e.error) Ti.API.error("Error: " + e.error); else {
+                        locationModule.lastLocation.longitude = e.coords.longitude;
+                        locationModule.lastLocation.latitude = e.coords.latitude;
+                        alert("e.coords: " + e.coords);
+                    }
                 });
             } else alert("Please enable location services");
         },
@@ -41,21 +52,34 @@ function Controller() {
             altitude: 0,
             altitudeAccuracy: null,
             heading: 0,
-            latitude: 37.7922852,
-            longitude: -122.4060012,
+            latitude: 37.7923852,
+            longitude: -122.4024346,
             speed: 0,
             timestamp: 1385426498331
         }
     };
+    var locationHelper = {
+        queryParser: function(lat, long) {
+            return "latitude=" + lat + "&longitude=" + long;
+        }
+    };
     var sendGeocode = {
         xhr: Ti.Network.createHTTPClient(),
-        api_url: "www.google.com",
+        api_url: "http://sanfran-beer-finder.herokuapp.com/stores.json?",
         sendLocation: function(phoneLatitude, phoneLongitude) {
-            sendGeocode.xhr.open("POST", sendGeocode.api_url);
+            queryString = locationHelper.queryParser(phoneLatitude, phoneLongitude);
+            url = sendGeocode.api_url + queryString;
+            sendGeocode.xhr.open("GET", url);
             sendGeocode.xhr.send({
                 latitude: phoneLatitude,
                 longitude: phoneLongitude
             });
+            sendGeocode.xhr.onload = function() {
+                alert(this.responseText);
+            };
+            sendGeocode.xhr.onerror = function() {
+                alert("There be errors!");
+            };
         }
     };
     $.index.open();
