@@ -40,7 +40,7 @@ var locationHelper = {
 
 var sendGeocode = {
 	xhr : Ti.Network.createHTTPClient(),
-	api_url : "www.google.com" + "/stores.json?",
+	api_url : "http://sanfran-beer-finder.herokuapp.com" + "/stores.json?",
 	sendLocation : function(phoneLatitude, phoneLongitude) {
 		url = sendGeocode.api_url + locationHelper(phoneLatitude, phoneLongitude);
 		sendGeocode.xhr.open('GET', url);
