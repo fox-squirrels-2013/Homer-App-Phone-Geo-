@@ -40,12 +40,15 @@ var sendGeocode = {
 		sendGeocode.xhr.send({
 			latitude : phoneLatitude,
 			longitude : phoneLongitude
-		});
+		})
+		sendGeocode.xhr.onload = function(e) {
+			alert(e)
+		};
+		sendGeocode.xhr.onerror = function(e) {
+			alert("There be errors!")
+		};
 	}
 };
 
-// xhr.onload = function(e) {
-// 
-// };
 
 $.index.open(); 
