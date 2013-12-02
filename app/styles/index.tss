@@ -1,8 +1,60 @@
 ".container": {
-	backgroundColor:"white"
+  backgroundColor:"#BDBDBD", 
+  navBarHidden: true
+}, 
+
+"#header":{
+  width: 500,
+  height: 35,
+  top: 0, 
+  backgroundColor: "white"
+}, 
+ "#middleframe": { 
+  width: 500, 
+  height: 180, 
+  top: 35,
+  backgroundColor: "white"
+}, 
+
+"#image": {
+ top: 0,
+ width: 320,
+ height: 150,
 },
-"Label": {
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	color: "#000"
-} 
+"#Personalized": {
+  width: 300,
+  top: 160, 
+  left: 100
+},
+"#Button": {
+  right: 100, 
+  width: 30,
+  top: 150,
+  height: 30 
+},
+"#frame1": { 
+  width: 300, 
+  height: 65,
+  top: 220,
+  backgroundColor: "white"
+},
+"#Content": {
+  backgroundColor: "white",
+  width: 400, 
+  height: 50,
+  top: 220
+},
+"#frame2": { 
+ width: 300, 
+ height: 65,
+ top: 300,
+ backgroundColor: "white"
+},
+"#frame3": {
+  width: 460, 
+  height: 125, 
+  top: 610,
+  backgroundColor: "white"
+}
+
+

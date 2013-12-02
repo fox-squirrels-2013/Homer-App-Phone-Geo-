@@ -1,5 +1,7 @@
 function Controller() {
     function doClick() {
+        deviceLocation.getLocation();
+        alert("deviceLocation " + deviceLocation.lastLocation.latitude);
         sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
@@ -11,19 +13,93 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: "#BDBDBD",
+        navBarHidden: true,
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
-    $.__views.label = Ti.UI.createLabel({
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        color: "#000",
-        text: "Hello, World",
-        id: "label"
+    $.__views.header = Ti.UI.createView({
+        width: 500,
+        height: 35,
+        top: 0,
+        backgroundColor: "white",
+        id: "header"
     });
-    $.__views.index.add($.__views.label);
-    doClick ? $.__views.label.addEventListener("click", doClick) : __defers["$.__views.label!click!doClick"] = true;
+    $.__views.index.add($.__views.header);
+    $.__views.middleframe = Ti.UI.createView({
+        width: 500,
+        height: 180,
+        top: 35,
+        backgroundColor: "white",
+        id: "middleframe"
+    });
+    $.__views.index.add($.__views.middleframe);
+    $.__views.image = Ti.UI.createImageView({
+        top: 0,
+        width: 320,
+        height: 150,
+        id: "image",
+        image: "/images/beerscreen.png"
+    });
+    $.__views.middleframe.add($.__views.image);
+    $.__views.Personalized = Ti.UI.createLabel({
+        width: 300,
+        top: 160,
+        left: 100,
+        text: "YOUR PERSONALIZED DEALS:",
+        id: "Personalized",
+        textAlign: "TI.UI.TEXT_ALIGNMENT_LEFT"
+    });
+    $.__views.middleframe.add($.__views.Personalized);
+    $.__views.Button = Ti.UI.createImageView({
+        right: 100,
+        width: 30,
+        top: 150,
+        height: 30,
+        id: "Button",
+        image: "/images/refresh.png"
+    });
+    $.__views.middleframe.add($.__views.Button);
+    doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
+    $.__views.frame1 = Ti.UI.createView({
+        width: 300,
+        height: 65,
+        top: 220,
+        backgroundColor: "white",
+        id: "frame1"
+    });
+    $.__views.index.add($.__views.frame1);
+    $.__views.label1 = Ti.UI.createLabel({
+        text: "",
+        id: "label1"
+    });
+    $.__views.frame1.add($.__views.label1);
+    $.__views.frame2 = Ti.UI.createView({
+        width: 300,
+        height: 65,
+        top: 300,
+        backgroundColor: "white",
+        id: "frame2"
+    });
+    $.__views.index.add($.__views.frame2);
+    $.__views.label2 = Ti.UI.createLabel({
+        text: "",
+        id: "label2"
+    });
+    $.__views.frame2.add($.__views.label2);
+    $.__views.frame3 = Ti.UI.createView({
+        width: 460,
+        height: 125,
+        top: 610,
+        backgroundColor: "white",
+        id: "frame3"
+    });
+    $.__views.index.add($.__views.frame3);
+    $.__views.label3 = Ti.UI.createLabel({
+        text: "",
+        id: "label3"
+    });
+    $.__views.frame3.add($.__views.label3);
     exports.destroy = function() {};
     _.extend($, $.__views);
     deviceLocation = {
@@ -75,15 +151,15 @@ function Controller() {
                 console.log("response String hit!!!!!!!!!!!!!!!!!!!");
                 geocodeData.responseString = JSON.parse(this.responseText);
                 console.log(geocodeData.responseString);
+                $.label1.text = geocodeData.responseString;
             };
             sendGeocode.xhr.onerror = function() {
                 alert("There will be errors!");
             };
-            alert("This is the last line:  " + geocodeData.responseString);
         }
     };
     $.index.open();
-    __defers["$.__views.label!click!doClick"] && $.__views.label.addEventListener("click", doClick);
+    __defers["$.__views.Button!click!doClick"] && $.__views.Button.addEventListener("click", doClick);
     _.extend($, exports);
 }
 

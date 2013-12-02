@@ -1,9 +1,10 @@
 	function doClick(e) {
-		// deviceLocation.getLocation();
-		// alert("deviceLocation " + deviceLocation.lastLocation.latitude);
-		// sendGeocode.sendLocation(deviceLocation.lastLocation.latitude, deviceLocation.lastLocation.longitude)
-		sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
+		deviceLocation.getLocation();
+		alert("deviceLocation " + deviceLocation.lastLocation.latitude);
+		// sendGeocode.sendLocation(deviceLocation.lastLocation.latitude, deviceLocation.lastLocation.longitude)	
+	    sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
 	}
+	
 
 	deviceLocation = {
 		lastLocation: {
@@ -60,6 +61,8 @@
 	     	console.log("response String hit!!!!!!!!!!!!!!!!!!!")
 		   geocodeData.responseString = JSON.parse(this.responseText);
 		   console.log(geocodeData.responseString)
+		   $.label1.text = geocodeData.responseString
+		   
 		 };
 	     sendGeocode.xhr.onerror = function(e) {
 		   alert("There will be errors!");
@@ -68,7 +71,7 @@
 	}
 	var displayData = {
 
-		}
+	 }
 
 
 

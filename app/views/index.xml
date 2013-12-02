@@ -1,5 +1,14 @@
 <Alloy>
-	<Window class="container">
-		<Label id="label" onClick="doClick">Hello, World</Label>
-	</Window>
+  <Window class="container">
+   <View id="header">Homer</View>
+     <View id="middleframe">
+      <ImageView id="image" image="/images/beerscreen.png"></ImageView> 
+        <Label id="Personalized" textAlign="TI.UI.TEXT_ALIGNMENT_LEFT">YOUR PERSONALIZED DEALS: </Label> 
+        <ImageView id="Button" onClick="doClick" image="/images/refresh.png"></ImageView> 
+     </View>
+   <View id="frame1"><Label id="label1"> </Label></View>
+   <View id="frame2"><Label id="label2"> </Label></View>
+   <View id="frame3"><Label id="label3"> </Label></View>
+  </Window>
 </Alloy>
+
