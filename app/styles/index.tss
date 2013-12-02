@@ -32,11 +32,11 @@
   top: 150,
   height: 30 
 },
-"#frame1": { 
+"#dealList": { 
   width: 300, 
   height: 65,
   top: 220,
-  backgroundColor: "white"
+  backgroundColor: "#CCCCCC"
 },
 "#Content": {
   backgroundColor: "white",

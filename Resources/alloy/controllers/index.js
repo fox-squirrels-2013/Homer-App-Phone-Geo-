@@ -61,45 +61,14 @@ function Controller() {
     });
     $.__views.middleframe.add($.__views.Button);
     doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
-    $.__views.frame1 = Ti.UI.createView({
+    $.__views.dealList = Ti.UI.createListView({
         width: 300,
         height: 65,
         top: 220,
-        backgroundColor: "white",
-        id: "frame1"
+        backgroundColor: "#CCCCCC",
+        id: "dealList"
     });
-    $.__views.index.add($.__views.frame1);
-    $.__views.label1 = Ti.UI.createLabel({
-        text: "",
-        id: "label1"
-    });
-    $.__views.frame1.add($.__views.label1);
-    $.__views.frame2 = Ti.UI.createView({
-        width: 300,
-        height: 65,
-        top: 300,
-        backgroundColor: "white",
-        id: "frame2"
-    });
-    $.__views.index.add($.__views.frame2);
-    $.__views.label2 = Ti.UI.createLabel({
-        text: "",
-        id: "label2"
-    });
-    $.__views.frame2.add($.__views.label2);
-    $.__views.frame3 = Ti.UI.createView({
-        width: 460,
-        height: 125,
-        top: 610,
-        backgroundColor: "white",
-        id: "frame3"
-    });
-    $.__views.index.add($.__views.frame3);
-    $.__views.label3 = Ti.UI.createLabel({
-        text: "",
-        id: "label3"
-    });
-    $.__views.frame3.add($.__views.label3);
+    $.__views.index.add($.__views.dealList);
     exports.destroy = function() {};
     _.extend($, $.__views);
     deviceLocation = {
@@ -116,7 +85,6 @@ function Controller() {
                     if (e.error) Ti.API.error("Error: " + e.error); else {
                         deviceLocation.lastLocation.longitude = e.coords.longitude;
                         deviceLocation.lastLocation.latitude = e.coords.latitude;
-                        alert("e.coords: " + e.coords);
                     }
                 });
             } else alert("Please enable location services");
@@ -127,14 +95,13 @@ function Controller() {
         }
     };
     var sendGeocode = {
-        api_url: "http://sanfran-beer-finder.herokuapp.com/stores.json?",
+        api_url: "http://sanfran-beer-finder.herokuapp.com/?",
         xhr: Ti.Network.createHTTPClient(),
         queryParser: function(lat, long) {
             return "latitude=" + lat + "&longitude=" + long;
         },
         sendLocation: function(phoneLatitude, phoneLongitude) {
             queryString = sendGeocode.queryParser(phoneLatitude, phoneLongitude);
-            console.log(queryString + "!!!!!!!!!!!!!!!!!!!!!");
             url = sendGeocode.api_url + queryString;
             sendGeocode.xhr.open("GET", url);
             sendGeocode.xhr.send({
@@ -145,13 +112,13 @@ function Controller() {
         }
     };
     var geocodeData = {
-        responseString: "F ",
+        responseString: "0",
         responseData: function() {
             sendGeocode.xhr.onload = function() {
-                console.log("response String hit!!!!!!!!!!!!!!!!!!!");
-                geocodeData.responseString = JSON.parse(this.responseText);
-                console.log(geocodeData.responseString);
-                $.label1.text = geocodeData.responseString;
+                var results = JSON.parse(this.responseText);
+                results.results.forEach(function(result) {
+                    console.log(result.name);
+                });
             };
             sendGeocode.xhr.onerror = function() {
                 alert("There will be errors!");
