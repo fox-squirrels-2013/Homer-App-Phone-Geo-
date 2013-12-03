@@ -71,6 +71,10 @@ function Controller() {
     $.__views.index.add($.__views.dealList);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var tijasmine = require("/tijasmine/tijasmine"), reporter = new (require("/tijasmine/tijasmine-console").ConsoleReporter)();
+    tijasmine.addSpecModules("/specs/jasmineintro", "/specs/ui");
+    tijasmine.addReporter(reporter);
+    tijasmine.execute();
     deviceLocation = {
         lastLocation: {
             latitude: 0,
