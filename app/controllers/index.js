@@ -45,8 +45,8 @@
 			url = sendGeocode.api_url + queryString
 			sendGeocode.xhr.open('GET', url);
 			sendGeocode.xhr.send({
-				latitude : phoneLatitude,
-				longitude : phoneLongitude
+				// latitude : phoneLatitude,
+				// longitude : phoneLongitude  ####Commented out to test whether the query was using these coords or the ones in the query string
 			});
 			geocodeData.responseData()
 		}
@@ -58,16 +58,6 @@
 		   var response = JSON.parse(this.responseText);
 
 		   var rows = [];
-			// _.each(response, function(item) {
-			// 	rows.push(Alloy.createController('row', {
-			// 		name: item.name,
-			// 		product: item.product,
-			// 		price: item.price,
-			// 		discount: item.discount
-			// 	}).getView());
-			// });
-			// $.dealTable.setData(rows);
-			console.log(response.results);
 			 response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
 			 		name: result.name,
@@ -77,7 +67,7 @@
 					discount: result.discount
 			 	}).getView());
 			 });
-			 
+
 			 $.dealTable.setData(rows);
 
 		 };
@@ -89,10 +79,5 @@
 	var displayData = {
 
 	};
-// Iterate over data, break data out into displayable chunks
-// package up those displayable chunks into an XML object
-// Push each of those XML objects into the appropriate view
-//"results":[{"coordinate":[37.7923,-122.4024],"name":"Walgreens","product":"PBR","price":"$10",
-//"discount":"50%","address":"300 Montgomery St, San Francisco, CA"}]}
 
 	$.index.open();

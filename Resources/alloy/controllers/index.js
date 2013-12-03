@@ -103,10 +103,7 @@ function Controller() {
             queryString = sendGeocode.queryParser(phoneLatitude, phoneLongitude);
             url = sendGeocode.api_url + queryString;
             sendGeocode.xhr.open("GET", url);
-            sendGeocode.xhr.send({
-                latitude: phoneLatitude,
-                longitude: phoneLongitude
-            });
+            sendGeocode.xhr.send({});
             geocodeData.responseData();
         }
     };
@@ -116,7 +113,6 @@ function Controller() {
             sendGeocode.xhr.onload = function() {
                 var response = JSON.parse(this.responseText);
                 var rows = [];
-                console.log(response.results);
                 response.results.forEach(function(result) {
                     rows.push(Alloy.createController("row", {
                         name: result.name,
