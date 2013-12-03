@@ -1,7 +1,6 @@
 function Controller() {
     function doClick() {
         deviceLocation.getLocation();
-        alert("deviceLocation " + deviceLocation.lastLocation.latitude);
         sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
