@@ -10,3 +10,13 @@
 //
 // Alloy.Globals.someGlobalFunction = function(){};
 
+if( Ti.App.deployType !== 'production' )
+{
+        var behave = require('behave');
+
+        //require your created specs
+        require('spec/ui');
+
+        //run:tests
+        behave.run();        
+}

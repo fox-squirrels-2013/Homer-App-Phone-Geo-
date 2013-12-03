@@ -115,9 +115,10 @@ function Controller() {
         responseString: "0",
         responseData: function() {
             sendGeocode.xhr.onload = function() {
-                var results = JSON.parse(this.responseText);
-                results.results.forEach(function(result) {
+                var response = JSON.parse(this.responseText);
+                response.results.forEach(function(result) {
                     console.log(result.name);
+                    Titanium.UI.ListItem;
                 });
             };
             sendGeocode.xhr.onerror = function() {
