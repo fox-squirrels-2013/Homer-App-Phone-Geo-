@@ -1,6 +1,5 @@
 	function doClick(e) {
 		deviceLocation.getLocation();
-		alert("deviceLocation " + deviceLocation.lastLocation.latitude);
 		// sendGeocode.sendLocation(deviceLocation.lastLocation.latitude, deviceLocation.lastLocation.longitude)
 	    sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
 	}
@@ -57,14 +56,29 @@
 	   responseData: function(){
 	     sendGeocode.xhr.onload = function(e) {
 		   var response = JSON.parse(this.responseText);
-		   // alert(geocodeData.responseString)
-		   // geocodeData.responseString
-		   response.results.forEach(function(result){
-		   	console.log(result.name);
-		   	var deal = Titanium.UI.ListItem
-		   });
-		   
-		   
+
+		   var rows = [];
+			// _.each(response, function(item) {
+			// 	rows.push(Alloy.createController('row', {
+			// 		name: item.name,
+			// 		product: item.product,
+			// 		price: item.price,
+			// 		discount: item.discount
+			// 	}).getView());
+			// });
+			// $.dealTable.setData(rows);
+
+			 response.results.forEach(function(result){
+			 	rows.push(Alloy.createController('row', {
+			 		name: result.name,
+					product: result.product,
+					price: result.price,
+					address: result.address,
+					discount: result.discount
+			 	}).getView());
+			 });
+			 $.dealTable.setData(rows);
+
 		 };
 	     sendGeocode.xhr.onerror = function(e) {
 		   alert("There will be errors!");

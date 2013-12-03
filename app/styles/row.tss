@@ -1,0 +1,48 @@
+"#name": {
+    height: '30dp',
+    font: {
+        fontSize: '20dp'
+    },
+    left: '0dp',
+    right: '3dp',
+    touchEnabled: false
+}
+"#product": {
+    height: '40dp',
+    font: {
+        fontSize: '16dp'
+    },
+    left: '103dp',
+    right: '3dp',
+    touchEnabled: false
+}
+
+"#price": {
+    height: '50dp',
+    font: {
+        fontSize: '16dp'
+    },
+    left: '163dp',
+    right: '3dp',
+    touchEnabled: false
+}
+
+"#address": {
+    height: '60dp',
+    font: {
+        fontSize: '16dp'
+    },
+    left: '203dp',
+    right: '3dp',
+    touchEnabled: false
+}
+
+"#discount": {
+    height: '60dp',
+    font: {
+        fontSize: '16dp'
+    },
+    left: '203dp',
+    right: '3dp',
+    touchEnabled: false
+}

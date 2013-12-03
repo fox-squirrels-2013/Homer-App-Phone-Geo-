@@ -19,56 +19,56 @@ function Controller() {
     });
     $.__views.index && $.addTopLevelView($.__views.index);
     $.__views.header = Ti.UI.createView({
-        width: 500,
-        height: 35,
-        top: 0,
+        width: "500dp",
+        height: "35dp",
+        top: "0dp",
         backgroundColor: "white",
         id: "header"
     });
     $.__views.index.add($.__views.header);
     $.__views.middleframe = Ti.UI.createView({
-        width: 500,
-        height: 180,
-        top: 35,
+        width: "500dp",
+        height: "180dp",
+        top: "35dp",
         backgroundColor: "white",
         id: "middleframe"
     });
     $.__views.index.add($.__views.middleframe);
     $.__views.image = Ti.UI.createImageView({
-        top: 0,
-        width: 320,
-        height: 150,
+        top: "0dp",
+        width: "320dp",
+        height: "150dp",
         id: "image",
         image: "/images/beerscreen.png"
     });
     $.__views.middleframe.add($.__views.image);
     $.__views.Personalized = Ti.UI.createLabel({
-        width: 300,
-        top: 160,
-        left: 100,
+        width: "300dp",
+        top: "160dp",
+        left: "100dp",
         text: "YOUR PERSONALIZED DEALS:",
         id: "Personalized",
         textAlign: "TI.UI.TEXT_ALIGNMENT_LEFT"
     });
     $.__views.middleframe.add($.__views.Personalized);
     $.__views.Button = Ti.UI.createImageView({
-        right: 100,
-        width: 30,
-        top: 150,
-        height: 30,
+        right: "100dp",
+        width: "30dp",
+        top: "150dp",
+        height: "30dp",
         id: "Button",
         image: "/images/refresh.png"
     });
     $.__views.middleframe.add($.__views.Button);
     doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
-    $.__views.dealList = Ti.UI.createListView({
-        width: 300,
-        height: 65,
-        top: 220,
+    $.__views.dealTable = Ti.UI.createTableView({
+        width: "300dp",
+        height: "65dp",
+        top: "220dp",
         backgroundColor: "#CCCCCC",
-        id: "dealList"
+        id: "dealTable"
     });
-    $.__views.index.add($.__views.dealList);
+    $.__views.index.add($.__views.dealTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
     deviceLocation = {
@@ -115,10 +115,18 @@ function Controller() {
         responseString: "0",
         responseData: function() {
             sendGeocode.xhr.onload = function() {
-                var results = JSON.parse(this.responseText);
-                results.results.forEach(function(result) {
-                    console.log(result.name);
+                var response = JSON.parse(this.responseText);
+                var rows = [];
+                response.results.forEach(function(result) {
+                    rows.push(Alloy.createController("row", {
+                        name: result.name,
+                        product: result.product,
+                        price: result.price,
+                        address: result.address,
+                        discount: result.discount
+                    }).getView());
                 });
+                $.dealTable.setData(rows);
             };
             sendGeocode.xhr.onerror = function() {
                 alert("There will be errors!");

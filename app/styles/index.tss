@@ -1,60 +1,67 @@
 ".container": {
-  backgroundColor:"#BDBDBD", 
+  backgroundColor:"#BDBDBD",
   navBarHidden: true
-}, 
+},
 
 "#header":{
-  width: 500,
-  height: 35,
-  top: 0, 
+  width: '500dp',
+  height: '35dp',
+  top: '0dp',
   backgroundColor: "white"
-}, 
- "#middleframe": { 
-  width: 500, 
-  height: 180, 
-  top: 35,
+},
+ "#middleframe": {
+  width: '500dp',
+  height: '180dp',
+  top: '35dp',
   backgroundColor: "white"
-}, 
+},
 
 "#image": {
- top: 0,
- width: 320,
- height: 150,
+ top: '0dp',
+ width: '320dp',
+ height: '150dp',
 },
 "#Personalized": {
-  width: 300,
-  top: 160, 
-  left: 100
+  width: '300dp',
+  top: '160dp',
+  left: '100dp'
 },
 "#Button": {
-  right: 100, 
-  width: 30,
-  top: 150,
-  height: 30 
+  right: '100dp',
+  width: '30dp',
+  top: '150dp',
+  height: '30dp'
 },
-"#dealList": { 
-  width: 300, 
-  height: 65,
-  top: 220,
+"#dealTable": {
+  width: '300dp',
+  height: '65dp',
+  top: '220dp',
   backgroundColor: "#CCCCCC"
 },
 "#Content": {
   backgroundColor: "white",
-  width: 400, 
-  height: 50,
-  top: 220
+  width: '400dp',
+  height: '50dp',
+  top: '220dp'
 },
-"#frame2": { 
- width: 300, 
- height: 65,
- top: 300,
+"#frame2": {
+ width: '300dp',
+ height: '65dp',
+ top: '300dp',
  backgroundColor: "white"
 },
 "#frame3": {
-  width: 460, 
-  height: 125, 
-  top: 610,
+  width: '460dp',
+  height: '125dp',
+  top: '610dp',
   backgroundColor: "white"
-}
-
-
+},
+// "Label": {
+    // left: '15dp',
+    // top: '10dp',
+    // font: {
+        // fontSize: '18dp',
+        // fontWeight: 'normal'
+    // },
+    // textAlign: 'left'
+// },
