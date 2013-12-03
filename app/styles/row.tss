@@ -1,0 +1,57 @@
+"#name": {
+    height: '35dp',
+    font: {
+        fontSize: '18dp'
+    },
+    left: '0dp',
+    right: '3dp',
+    touchEnabled: false
+}
+"#product": {
+    height: '40dp',
+    font: {
+        fontSize: '14dp'
+    },
+    left: '103dp',
+    right: '3dp',
+    touchEnabled: false
+}
+
+"#price": {
+    height: '50dp',
+    font: {
+        fontSize: '14dp'
+    },
+    top: '-10dp',
+    left: '165dp',
+    right: '3dp',
+    touchEnabled: false
+}
+
+"#address": {
+    height: '60dp',
+    font: {
+        fontSize: '12dp'
+    },
+    left: '203dp',
+    right: '3dp',
+    touchEnabled: false
+}
+
+"#discount": {
+    height: '60dp',
+    font: {
+        fontSize: '14dp'
+    },
+    top: '60db',
+    // bottom: '-40db',
+    left: '165dp',
+    right: '3dp',
+    touchEnabled: false
+},
+"TableViewRow": {
+	backgroundColor: "white"
+},
+"Label": {
+	color: "#999"
+},
