@@ -61,8 +61,8 @@ function Controller() {
     $.__views.middleframe.add($.__views.Button);
     doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
     $.__views.dealTable = Ti.UI.createTableView({
-        width: "300dp",
-        height: "65dp",
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
         top: "220dp",
         backgroundColor: "#CCCCCC",
         id: "dealTable"

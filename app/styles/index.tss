@@ -33,8 +33,8 @@
   height: '30dp'
 },
 "#dealTable": {
-  width: '300dp',
-  height: '65dp',
+  width: Ti.UI.SIZE,
+  height: Ti.UI.SIZE,
   top: '220dp',
   backgroundColor: "#CCCCCC"
 },
