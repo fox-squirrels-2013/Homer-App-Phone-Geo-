@@ -1,11 +1,4 @@
-		//if (Ti.App.deployType === 'test'){
-			var tijasmine = require("/tijasmine/tijasmine"),
-    reporter = new (require("/tijasmine/tijasmine-console").ConsoleReporter)();
 
-tijasmine.addSpecModules("/specs/jasmineintro", "/specs/ui");
-tijasmine.addReporter(reporter);
-tijasmine.execute();
-		//}
 
 
 
