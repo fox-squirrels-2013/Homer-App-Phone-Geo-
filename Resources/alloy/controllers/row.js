@@ -17,7 +17,7 @@ function Controller() {
         font: {
             fontSize: "18dp"
         },
-        left: "0dp",
+        left: "5dp",
         right: "3dp",
         touchEnabled: false,
         id: "name"
