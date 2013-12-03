@@ -1,4 +1,4 @@
-require("/tijasmine/tijasmine").infect(this);
+require("../../Resources/tijasmine/tijasmine").infect(this);
 
 describe("counter", function () {
     var counter = require('counter');
