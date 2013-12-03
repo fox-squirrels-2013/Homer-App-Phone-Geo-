@@ -67,7 +67,7 @@
 			// 	}).getView());
 			// });
 			// $.dealTable.setData(rows);
-
+			console.log(response.results);
 			 response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
 			 		name: result.name,
@@ -77,6 +77,7 @@
 					discount: result.discount
 			 	}).getView());
 			 });
+			 
 			 $.dealTable.setData(rows);
 
 		 };

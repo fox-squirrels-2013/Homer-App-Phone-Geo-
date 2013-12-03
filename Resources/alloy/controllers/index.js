@@ -116,6 +116,7 @@ function Controller() {
             sendGeocode.xhr.onload = function() {
                 var response = JSON.parse(this.responseText);
                 var rows = [];
+                console.log(response.results);
                 response.results.forEach(function(result) {
                     rows.push(Alloy.createController("row", {
                         name: result.name,
