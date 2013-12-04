@@ -29,12 +29,12 @@
 						Ti.API.error('Error: ' + e.error);
 					}
 					else {
-						deviceLocation.lastLocation.longitude = e.coords.longitude
-						deviceLocation.lastLocation.latitude = e.coords.latitude
+						deviceLocation.lastLocation.longitude = e.coords.longitude;
+						deviceLocation.lastLocation.latitude = e.coords.latitude;
 					}
-				})
+				});
 			} else {
-				alert('Please enable location services')
+				alert('Please enable location services');
 			}
 		},
 		fakeLocation : {
@@ -60,7 +60,7 @@
 				// latitude : phoneLatitude,
 				// longitude : phoneLongitude  ####Commented out to test whether the query was using these coords or the ones in the query string
 			});
-			geocodeData.responseData()
+			geocodeData.responseData();
 		}
 	};
 	var geocodeData = {

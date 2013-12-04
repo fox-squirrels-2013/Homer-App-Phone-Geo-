@@ -12,19 +12,19 @@ function Controller() {
     });
     $.__views.row && $.addTopLevelView($.__views.row);
     $.__views.name = Ti.UI.createLabel({
-        color: "#999",
+        color: "#000",
         height: "35dp",
         font: {
             fontSize: "18dp"
         },
-        left: "0dp",
+        left: "5dp",
         right: "3dp",
         touchEnabled: false,
         id: "name"
     });
     $.__views.row.add($.__views.name);
     $.__views.product = Ti.UI.createLabel({
-        color: "#999",
+        color: "#000",
         height: "40dp",
         font: {
             fontSize: "14dp"
@@ -36,7 +36,7 @@ function Controller() {
     });
     $.__views.row.add($.__views.product);
     $.__views.price = Ti.UI.createLabel({
-        color: "#999",
+        color: "#000",
         height: "50dp",
         font: {
             fontSize: "14dp"
@@ -49,7 +49,7 @@ function Controller() {
     });
     $.__views.row.add($.__views.price);
     $.__views.discount = Ti.UI.createLabel({
-        color: "#999",
+        color: "#000",
         height: "60dp",
         font: {
             fontSize: "14dp"
@@ -62,7 +62,7 @@ function Controller() {
     });
     $.__views.row.add($.__views.discount);
     $.__views.address = Ti.UI.createLabel({
-        color: "#999",
+        color: "#000",
         height: "60dp",
         font: {
             fontSize: "12dp"

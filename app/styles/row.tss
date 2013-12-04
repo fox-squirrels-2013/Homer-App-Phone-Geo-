@@ -3,7 +3,7 @@
     font: {
         fontSize: '18dp'
     },
-    left: '0dp',
+    left: '5dp',
     right: '3dp',
     touchEnabled: false
 }
@@ -44,7 +44,6 @@
         fontSize: '14dp'
     },
     top: '60db',
-    // bottom: '-40db',
     left: '165dp',
     right: '3dp',
     touchEnabled: false
@@ -53,5 +52,5 @@
 	backgroundColor: "white"
 },
 "Label": {
-	color: "#999"
+	color: "#000"
 },

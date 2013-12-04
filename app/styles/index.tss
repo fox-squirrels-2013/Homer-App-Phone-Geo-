@@ -44,26 +44,3 @@
   height: '50dp',
   top: '220dp'
 },
-"#frame2": {
- width: '300dp',
- height: '65dp',
- top: '300dp',
- backgroundColor: "white"
-},
-"#frame3": {
-  width: '460dp',
-  height: '125dp',
-  top: '610dp',
-  backgroundColor: "white"
-},
-
-
-// "Label": {
-    // left: '15dp',
-    // top: '10dp',
-    // font: {
-        // fontSize: '18dp',
-        // fontWeight: 'normal'
-    // },
-    // textAlign: 'left'
-// },
