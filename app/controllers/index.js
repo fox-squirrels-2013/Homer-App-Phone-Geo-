@@ -6,7 +6,6 @@
 
 	function openMap(e){
 		var url = (e.row.mapUrl)
-
 		var webview = Ti.UI.createWebView()
 		webview.setUrl(url)
 		var win = Ti.UI.createWindow()
