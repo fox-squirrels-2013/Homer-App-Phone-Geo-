@@ -3,6 +3,16 @@ function Controller() {
         deviceLocation.getLocation();
         sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
     }
+    function openMap(e) {
+        var url = e.row.mapUrl;
+        var webview = Ti.UI.createWebView();
+        webview.setUrl(url);
+        var win = Ti.UI.createWindow();
+        win.add(webview);
+        win.open({
+            modal: true
+        });
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -68,6 +78,7 @@ function Controller() {
         id: "dealTable"
     });
     $.__views.index.add($.__views.dealTable);
+    openMap ? $.__views.dealTable.addEventListener("click", openMap) : __defers["$.__views.dealTable!click!openMap"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     deviceLocation = {
@@ -96,14 +107,17 @@ function Controller() {
     var sendGeocode = {
         api_url: "http://sanfran-beer-finder.herokuapp.com/?",
         xhr: Ti.Network.createHTTPClient(),
-        queryParser: function(lat, long) {
-            return "latitude=" + lat + "&longitude=" + long;
+        apiQueryParser: function(lat, lon) {
+            return "latitude=" + lat + "&longitude=" + lon;
+        },
+        googleQueryParser: function(lat, lon) {
+            return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
         },
         sendLocation: function(phoneLatitude, phoneLongitude) {
-            queryString = sendGeocode.queryParser(phoneLatitude, phoneLongitude);
+            queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude);
             url = sendGeocode.api_url + queryString;
             sendGeocode.xhr.open("GET", url);
-            sendGeocode.xhr.send({});
+            sendGeocode.xhr.send();
             geocodeData.responseData();
         }
     };
@@ -115,6 +129,7 @@ function Controller() {
                 var rows = [];
                 response.results.forEach(function(result) {
                     rows.push(Alloy.createController("row", {
+                        mapUrl: sendGeocode.googleQueryParser(result.coordinate[0], result.coordinate[1]),
                         name: result.name,
                         product: result.product,
                         price: result.price,
@@ -131,6 +146,7 @@ function Controller() {
     };
     $.index.open();
     __defers["$.__views.Button!click!doClick"] && $.__views.Button.addEventListener("click", doClick);
+    __defers["$.__views.dealTable!click!openMap"] && $.__views.dealTable.addEventListener("click", openMap);
     _.extend($, exports);
 }
 
