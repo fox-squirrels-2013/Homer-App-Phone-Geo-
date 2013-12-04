@@ -1,7 +1,7 @@
 function Controller() {
     function doClick() {
-        alert(locationModule.fakeLocation);
-        sendGeocode.sendLocation(locationModule.fakeLocation.latitude, locationModule.fakeLocation.longitude);
+        deviceLocation.getLocation();
+        sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -12,54 +12,125 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "white",
+        backgroundColor: "#BDBDBD",
+        navBarHidden: true,
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
-    $.__views.label = Ti.UI.createLabel({
+    $.__views.header = Ti.UI.createView({
+        width: "500dp",
+        height: "35dp",
+        top: "0dp",
+        backgroundColor: "white",
+        id: "header"
+    });
+    $.__views.index.add($.__views.header);
+    $.__views.middleframe = Ti.UI.createView({
+        width: "500dp",
+        height: "180dp",
+        top: "35dp",
+        backgroundColor: "white",
+        id: "middleframe"
+    });
+    $.__views.index.add($.__views.middleframe);
+    $.__views.image = Ti.UI.createImageView({
+        top: "0dp",
+        width: "320dp",
+        height: "150dp",
+        id: "image",
+        image: "/images/beerscreen.png"
+    });
+    $.__views.middleframe.add($.__views.image);
+    $.__views.Personalized = Ti.UI.createLabel({
+        width: "300dp",
+        top: "160dp",
+        left: "100dp",
+        text: "YOUR PERSONALIZED DEALS:",
+        id: "Personalized",
+        textAlign: "TI.UI.TEXT_ALIGNMENT_LEFT"
+    });
+    $.__views.middleframe.add($.__views.Personalized);
+    $.__views.Button = Ti.UI.createImageView({
+        right: "100dp",
+        width: "30dp",
+        top: "150dp",
+        height: "30dp",
+        id: "Button",
+        image: "/images/refresh.png"
+    });
+    $.__views.middleframe.add($.__views.Button);
+    doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
+    $.__views.dealTable = Ti.UI.createTableView({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
-        color: "#000",
-        text: "Hello, World",
-        id: "label"
+        top: "220dp",
+        backgroundColor: "#CCCCCC",
+        id: "dealTable"
     });
-    $.__views.index.add($.__views.label);
-    doClick ? $.__views.label.addEventListener("click", doClick) : __defers["$.__views.label!click!doClick"] = true;
+    $.__views.index.add($.__views.dealTable);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    locationModule = {
+    deviceLocation = {
+        lastLocation: {
+            latitude: 0,
+            longitude: 0,
+            speed: 0,
+            timestamp: 1385426498331
+        },
         getLocation: function() {
             if (Ti.Geolocation.locationServicesEnabled) {
                 Titanium.Geolocation.purpose = "Get Current Location";
                 Titanium.Geolocation.getCurrentPosition(function(e) {
-                    e.error ? Ti.API.error("Error: " + e.error) : alert(e.coords);
+                    if (e.error) Ti.API.error("Error: " + e.error); else {
+                        deviceLocation.lastLocation.longitude = e.coords.longitude;
+                        deviceLocation.lastLocation.latitude = e.coords.latitude;
+                    }
                 });
             } else alert("Please enable location services");
         },
         fakeLocation: {
-            accuracy: 30,
-            altitude: 0,
-            altitudeAccuracy: null,
-            heading: 0,
-            latitude: 37.7922852,
-            longitude: -122.4060012,
-            speed: 0,
-            timestamp: 1385426498331
+            latitude: 37.7923852,
+            longitude: -122.4024346
         }
     };
     var sendGeocode = {
+        api_url: "http://sanfran-beer-finder.herokuapp.com/?",
         xhr: Ti.Network.createHTTPClient(),
-        api_url: "www.google.com",
+        queryParser: function(lat, long) {
+            return "latitude=" + lat + "&longitude=" + long;
+        },
         sendLocation: function(phoneLatitude, phoneLongitude) {
-            sendGeocode.xhr.open("POST", sendGeocode.api_url);
-            sendGeocode.xhr.send({
-                latitude: phoneLatitude,
-                longitude: phoneLongitude
-            });
+            queryString = sendGeocode.queryParser(phoneLatitude, phoneLongitude);
+            url = sendGeocode.api_url + queryString;
+            sendGeocode.xhr.open("GET", url);
+            sendGeocode.xhr.send({});
+            geocodeData.responseData();
+        }
+    };
+    var geocodeData = {
+        responseString: "0",
+        responseData: function() {
+            sendGeocode.xhr.onload = function() {
+                var response = JSON.parse(this.responseText);
+                var rows = [];
+                response.results.forEach(function(result) {
+                    rows.push(Alloy.createController("row", {
+                        name: result.name,
+                        product: result.product,
+                        price: result.price,
+                        address: result.address,
+                        discount: result.discount
+                    }).getView());
+                });
+                $.dealTable.setData(rows);
+            };
+            sendGeocode.xhr.onerror = function() {
+                alert("There will be errors!");
+            };
         }
     };
     $.index.open();
-    __defers["$.__views.label!click!doClick"] && $.__views.label.addEventListener("click", doClick);
+    __defers["$.__views.Button!click!doClick"] && $.__views.Button.addEventListener("click", doClick);
     _.extend($, exports);
 }
 

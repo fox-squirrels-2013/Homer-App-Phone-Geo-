@@ -1,18 +1,8 @@
-Welcome to your Appcelerator Titanium Mobile Project
+Readme
 
-This is a blank project.  Start by editing your application's app.js to 
-make your first mobile project using Titanium.
+Team: ACHTUNG DONUT!
+App: Titanium App part of our project. Acting as the interface between our service and mobile device users
 
+This app will show users the locations of the nearest and bestest booze deals!
 
-
-----------------------------------
-Stuff our legal folk make us say:
-
-Appcelerator, Appcelerator Titanium and associated marks and logos are 
-trademarks of Appcelerator, Inc. 
-
-Titanium is Copyright (c) 2008-2013 by Appcelerator, Inc. All Rights Reserved.
-
-Titanium is licensed under the Apache Public License (Version 2). Please
-see the LICENSE file for the full license.
-
+The Titanium framework has been used to create a native Android application. It gets data on discounts and deals from the Rails API, which is the other half of the project.

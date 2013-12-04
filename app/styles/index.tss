@@ -1,8 +1,46 @@
 ".container": {
-	backgroundColor:"white"
+  backgroundColor:"#BDBDBD",
+  navBarHidden: true
 },
-"Label": {
-	width: Ti.UI.SIZE,
-	height: Ti.UI.SIZE,
-	color: "#000"
-} 
+
+"#header":{
+  width: '500dp',
+  height: '35dp',
+  top: '0dp',
+  backgroundColor: "white"
+},
+ "#middleframe": {
+  width: '500dp',
+  height: '180dp',
+  top: '35dp',
+  backgroundColor: "white"
+},
+
+"#image": {
+ top: '0dp',
+ width: '320dp',
+ height: '150dp',
+},
+"#Personalized": {
+  width: '300dp',
+  top: '160dp',
+  left: '100dp'
+},
+"#Button": {
+  right: '100dp',
+  width: '30dp',
+  top: '150dp',
+  height: '30dp'
+},
+"#dealTable": {
+  width: Ti.UI.SIZE,
+  height: Ti.UI.SIZE,
+  top: '220dp',
+  backgroundColor: "#CCCCCC"
+},
+"#Content": {
+  backgroundColor: "white",
+  width: '400dp',
+  height: '50dp',
+  top: '220dp'
+},
