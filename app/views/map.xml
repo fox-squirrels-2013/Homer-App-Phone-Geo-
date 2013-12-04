@@ -1,5 +1,5 @@
 <Alloy>
   <Window>
-    <WebView id="web"/>
+    <WebView id="web" url=""/>
   </Window>
 </Alloy>

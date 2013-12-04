@@ -4,7 +4,14 @@ function Controller() {
         sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
     }
     function openMap(e) {
-        alert(e.row.mapUrl);
+        var url = e.row.mapUrl;
+        var webview = Ti.UI.createWebView();
+        webview.setUrl(url);
+        var win = Ti.UI.createWindow();
+        win.add(webview);
+        win.open({
+            modal: true
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -110,7 +117,7 @@ function Controller() {
             queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude);
             url = sendGeocode.api_url + queryString;
             sendGeocode.xhr.open("GET", url);
-            sendGeocode.xhr.send({});
+            sendGeocode.xhr.send();
             geocodeData.responseData();
         }
     };

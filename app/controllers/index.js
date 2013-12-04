@@ -5,12 +5,13 @@
 	}
 
 	function openMap(e){
-		alert(e.row.mapUrl)
-		// $.index.on('map', function(e){
+		var url = (e.row.mapUrl)
 
-		// 	Alloy.createController('map', {
-
-		// 	}).getView()
+		var webview = Ti.UI.createWebView()
+		webview.setUrl(url)
+		var win = Ti.UI.createWindow()
+		win.add(webview)
+		win.open({modal:true})
 	}
 
 
@@ -56,10 +57,7 @@
 			queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude)
 			url = sendGeocode.api_url + queryString
 			sendGeocode.xhr.open('GET', url);
-			sendGeocode.xhr.send({
-				// latitude : phoneLatitude,
-				// longitude : phoneLongitude  ####Commented out to test whether the query was using these coords or the ones in the query string
-			});
+			sendGeocode.xhr.send();
 			geocodeData.responseData();
 		}
 	};
