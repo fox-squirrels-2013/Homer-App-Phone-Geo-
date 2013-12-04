@@ -13,5 +13,15 @@ describe("Single Model Test Suite", function() {
         expect(Object.keys(deviceLocation.lastLocation)).toEqual(["latitude", "longitude", "speed", "timestamp"])
       });
     });
+  });
+
+  describe("setLocation", function() {
+    describe("getLocation calls setLocation", function() {
+      it("calls the setLocation function", function() { 
+        spyOn(deviceLocation, "getLocation");
+        deviceLocation.getLocation()
+        expect(deviceLocation.setLocation).toHaveBeenCalled().once()
+      });
+    });
   }); 
-  }); 
+}); 

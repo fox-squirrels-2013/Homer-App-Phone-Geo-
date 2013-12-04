@@ -12,22 +12,24 @@
 			"speed" : 0,
 			"timestamp" : 1385426498331
 		},
-		getLocation : function() {
+		getLocation: function() {
 			if (Ti.Geolocation.locationServicesEnabled) {
 				Titanium.Geolocation.purpose = 'Get Current Location';
-				Titanium.Geolocation.getCurrentPosition(function(e) {
-					if (e.error) {
-						Ti.API.error('Error: ' + e.error);
-					}
-					else {
-						deviceLocation.lastLocation.longitude = e.coords.longitude;
-						deviceLocation.lastLocation.latitude = e.coords.latitude;
-					}
-				});
-			} else {
+				Titanium.Geolocation.getCurrentPosition(function(this.setLocation) {
+			} 
+			else {
 				alert('Please enable location services');
 			}
 		},
+		setLocation: function(e) {
+			if (e.error) {
+				Ti.API.error('Error' + e.error)
+			}
+			else {
+				deviceLocation.lastLocation.longitude = e.coords.longitude
+				deviceLocation.lastLocation.longitude = e.coords.longitude	
+			}
+		},		
 		fakeLocation : {
 			"latitude" : 37.7923852,
 			"longitude" : -122.4024346
