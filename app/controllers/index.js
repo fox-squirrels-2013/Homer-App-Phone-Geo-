@@ -4,6 +4,15 @@
 	    sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
 	}
 
+	function openMap(e){
+		alert("cheese")
+		// $.index.on('map', function(e){
+
+		// 	Alloy.createController('map', {
+
+		// 	}).getView()
+	}
+
 
 	deviceLocation = {
 		lastLocation: {
@@ -37,11 +46,14 @@
 	var sendGeocode = {
 		api_url : "http://sanfran-beer-finder.herokuapp.com/?",
 		xhr : Ti.Network.createHTTPClient(),
-		queryParser: function(lat, long){
-			return "latitude=" + lat + "&longitude=" + long;
+		apiQueryParser: function(lat, lon){
+			return "latitude=" + lat + "&longitude=" + lon;
+		},
+		googleQueryParser: function(lat, lon){
+			return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
 		},
 		sendLocation : function(phoneLatitude, phoneLongitude) {
-			queryString = sendGeocode.queryParser(phoneLatitude, phoneLongitude)
+			queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude)
 			url = sendGeocode.api_url + queryString
 			sendGeocode.xhr.open('GET', url);
 			sendGeocode.xhr.send({
@@ -60,6 +72,7 @@
 		   var rows = [];
 			 response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
+			 		mapUrl: googleQueryParser(result.coordinate[0], result.coordinate[1]),
 			 		name: result.name,
 					product: result.product,
 					price: result.price,

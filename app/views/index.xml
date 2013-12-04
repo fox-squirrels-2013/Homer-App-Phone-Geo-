@@ -2,11 +2,11 @@
   <Window class="container">
    <View id="header">Homer</View>
      <View id="middleframe">
-      <ImageView id="image" image="/images/beerscreen.png"></ImageView> 
-        <Label id="Personalized" textAlign="TI.UI.TEXT_ALIGNMENT_LEFT">YOUR PERSONALIZED DEALS: </Label> 
-        <ImageView id="Button" onClick="doClick" image="/images/refresh.png"></ImageView> 
+      <ImageView id="image" image="/images/beerscreen.png"></ImageView>
+        <Label id="Personalized" textAlign="TI.UI.TEXT_ALIGNMENT_LEFT">YOUR PERSONALIZED DEALS: </Label>
+        <ImageView id="Button" onClick="doClick" image="/images/refresh.png"></ImageView>
      </View>
-   <TableView id="dealTable"></TableView>
+   <TableView id="dealTable" onClick="openMap"></TableView>
   </Window>
 </Alloy>
 
