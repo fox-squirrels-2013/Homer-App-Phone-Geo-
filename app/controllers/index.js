@@ -5,7 +5,7 @@
 	}
 
 	function openMap(e){
-		alert("cheese")
+		alert(e.row.mapUrl)
 		// $.index.on('map', function(e){
 
 		// 	Alloy.createController('map', {
@@ -72,7 +72,7 @@
 		   var rows = [];
 			 response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
-			 		mapUrl: googleQueryParser(result.coordinate[0], result.coordinate[1]),
+			 		mapUrl: sendGeocode.googleQueryParser(result.coordinate[0], result.coordinate[1]),
 			 		name: result.name,
 					product: result.product,
 					price: result.price,
