@@ -3,8 +3,9 @@
    <View id="header">Homer</View>
      <View id="middleframe">
       <ImageView id="image" image="/images/beerscreen.png"></ImageView>
-        <Label id="Personalized" textAlign="TI.UI.TEXT_ALIGNMENT_LEFT">YOUR PERSONALIZED DEALS: </Label>
+      
      </View>
+   <ActivityIndicator id="activityIndicator" message="Loading..."/>  
    <TableView id="dealTable" onClick="openMap"></TableView>
    <View id="endFrame">
    	<ImageView id="Button" onClick="doClick" image="/images/beerme.png"></ImageView>

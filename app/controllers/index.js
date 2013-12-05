@@ -1,7 +1,12 @@
 function doClick(e) {
 	deviceLocation.getLocation();
+	var win = Ti.UI.createWindow()
+	win.add(activityIndicator);
+	activityIndicator.show();
+	
 	// sendGeocode.sendLocation(locationValues.lastLocation.latitude, locationValues.lastLocation.longitude)
     sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
+	
 }
 
 function openMap(e){
@@ -27,7 +32,9 @@ var deviceLocation = {
 	getLocation: function() {
 		if (Ti.Geolocation.locationServicesEnabled) {
 			Titanium.Geolocation.purpose = 'Get Current Location';
-      		Titanium.Geolocation.getCurrentPosition(this.setLocation)
+			
+      		Titanium.Geolocation.getCurrentPosition(this.setLocation);
+      		
     }
 		else {
 			alert('Please enable location services');
@@ -81,9 +88,19 @@ var geocodeData = {
 	}
 };
 
+var activityIndicator = Ti.UI.createActivityIndicator({
+  color: 'green',
+  font: {fontFamily:'Helvetica Neue', fontSize:26, fontWeight:'bold'},
+  message: 'Loading...',
+  top:50,
+  left:100,
+  height:Ti.UI.SIZE,
+  width:Ti.UI.SIZE
+});
+
 var displayDeals = {
 		dataToRows: function(){
-			var rows = []
+			var rows = [];
 			geocodeData.response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
 			 		mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
@@ -93,9 +110,9 @@ var displayDeals = {
 					address: result.address,
 					discount: result.discount
 				}).getView());
-			})
+			});
 		$.dealTable.setData(rows);
 	}
-}
+};
 
 $.index.open();

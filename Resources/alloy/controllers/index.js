@@ -1,6 +1,9 @@
 function Controller() {
     function doClick() {
         deviceLocation.getLocation();
+        var win = Ti.UI.createWindow();
+        win.add(activityIndicator);
+        activityIndicator.show();
         sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
     }
     function openMap(e) {
@@ -51,15 +54,11 @@ function Controller() {
         image: "/images/beerscreen.png"
     });
     $.__views.middleframe.add($.__views.image);
-    $.__views.Personalized = Ti.UI.createLabel({
-        width: "300dp",
-        top: "160dp",
-        left: "100dp",
-        text: "YOUR PERSONALIZED DEALS:",
-        id: "Personalized",
-        textAlign: "TI.UI.TEXT_ALIGNMENT_LEFT"
+    $.__views.activityIndicator = Ti.UI.createActivityIndicator({
+        id: "activityIndicator",
+        message: "Loading..."
     });
-    $.__views.middleframe.add($.__views.Personalized);
+    $.__views.index.add($.__views.activityIndicator);
     $.__views.dealTable = Ti.UI.createTableView({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -72,7 +71,7 @@ function Controller() {
     $.__views.endFrame = Ti.UI.createView({
         backgroundColor: "#999999",
         width: "100%",
-        height: "60dp",
+        height: "55dp",
         bottom: "0dp",
         id: "endFrame"
     });
@@ -147,6 +146,19 @@ function Controller() {
             geocodeData.response = serverData;
         }
     };
+    var activityIndicator = Ti.UI.createActivityIndicator({
+        color: "green",
+        font: {
+            fontFamily: "Helvetica Neue",
+            fontSize: 26,
+            fontWeight: "bold"
+        },
+        message: "Loading...",
+        top: 50,
+        left: 100,
+        height: Ti.UI.SIZE,
+        width: Ti.UI.SIZE
+    });
     var displayDeals = {
         dataToRows: function() {
             var rows = [];
