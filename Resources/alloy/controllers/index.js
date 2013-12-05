@@ -126,14 +126,24 @@ function Controller() {
                 var self = this;
                 geocodeData.responseData(self);
             };
+            sendGeocode.xhr.onerror = function() {
+                alert("There will be errors!");
+            };
         }
     };
     var geocodeData = {
-        responseString: "0",
+        response: "0",
         responseData: function(self) {
-            var response = JSON.parse(self.responseText);
+            console.log("test for getting responseData");
+            var serverData = JSON.parse(self.responseText);
+            geocodeData.response = serverData;
+            displayDeals.test();
+        }
+    };
+    displayDeals = {
+        test: function() {
             var rows = [];
-            response.results.forEach(function(result) {
+            geocodeData.response.results.forEach(function(result) {
                 rows.push(Alloy.createController("row", {
                     mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
                     name: result.name,
@@ -144,9 +154,6 @@ function Controller() {
                 }).getView());
             });
             $.dealTable.setData(rows);
-            sendGeocode.xhr.onerror = function() {
-                alert("There will be errors!");
-            };
         }
     };
     $.index.open();
