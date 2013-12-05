@@ -12,6 +12,7 @@ function openMap(e){
 	win.add(webview)
 	win.open({modal:true})
 }
+
 var locationValues = {
 	lastLocation: {
 		"latitude" : 0,
@@ -64,32 +65,24 @@ var sendGeocode = {
 		sendGeocode.xhr.send();
 	  sendGeocode.xhr.onload = function(e) {
 			var self = this
-			 geocodeData.responseData(self)}
+			 geocodeData.responseData(self)
+			 displayDeals.dataToRows()
+			}
 	  sendGeocode.xhr.onerror = function(e) {
 	   alert("There will be errors!");
 	  };
 	}
 };
-
-//geocodeData
-//formatting the response of a succesful xhr request
-//Receiving the response
-//pushing the values into rows
-//inserting the rows into the dealTable
-//handling the on error request and passing an alert
 var geocodeData = {
    response: "0",
    responseData: function(self){
-   	console.log("test for getting responseData")
 	 var serverData = JSON.parse(self.responseText);
 	 geocodeData.response = serverData
-	 displayDeals.test()
 	}
 };
 
-
-displayDeals = {
-		test: function(){
+var displayDeals = {
+		dataToRows: function(){
 			var rows = []
 			geocodeData.response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
