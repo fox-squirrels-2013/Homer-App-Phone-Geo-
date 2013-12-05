@@ -122,27 +122,28 @@ function Controller() {
         sendLocation: function(phoneLatitude, phoneLongitude) {
             sendGeocode.xhr.open("GET", queryParser.url(phoneLatitude, phoneLongitude));
             sendGeocode.xhr.send();
-            geocodeData.responseData();
+            sendGeocode.xhr.onload = function() {
+                var self = this;
+                geocodeData.responseData(self);
+            };
         }
     };
     var geocodeData = {
         responseString: "0",
-        responseData: function() {
-            sendGeocode.xhr.onload = function() {
-                var response = JSON.parse(this.responseText);
-                var rows = [];
-                response.results.forEach(function(result) {
-                    rows.push(Alloy.createController("row", {
-                        mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
-                        name: result.name,
-                        product: result.product,
-                        price: result.price,
-                        address: result.address,
-                        discount: result.discount
-                    }).getView());
-                });
-                $.dealTable.setData(rows);
-            };
+        responseData: function(self) {
+            var response = JSON.parse(self.responseText);
+            var rows = [];
+            response.results.forEach(function(result) {
+                rows.push(Alloy.createController("row", {
+                    mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
+                    name: result.name,
+                    product: result.product,
+                    price: result.price,
+                    address: result.address,
+                    discount: result.discount
+                }).getView());
+            });
+            $.dealTable.setData(rows);
             sendGeocode.xhr.onerror = function() {
                 alert("There will be errors!");
             };

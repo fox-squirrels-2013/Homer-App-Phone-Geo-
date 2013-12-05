@@ -43,12 +43,6 @@
 	};
 
 
-//Parsing Object
-//object for the XhR request
-   //Include a xhr onload and error
-//object to handle the rows
-//
-
 
   var queryParser = {
   	api_url: "http://sanfran-beer-finder.herokuapp.com/?",
@@ -64,22 +58,19 @@
   }
 
 
-  	//sendGeocode
-// sets the url to use for  our api call
-//creates an HHTP request
-//formats the query string
-//formatting the googlequery string for the map
-//concatenating the url with query string
-//sending the client
-//calling the response data
-
-
 	var sendGeocode = {
 		xhr: Ti.Network.createHTTPClient(),
 		sendLocation: function(phoneLatitude, phoneLongitude) {
 			sendGeocode.xhr.open('GET', queryParser.url(phoneLatitude, phoneLongitude));
 			sendGeocode.xhr.send();
-			geocodeData.responseData();
+			// geocodeData.responseData();
+		  sendGeocode.xhr.onload = function(e) {
+				var self = this
+				 geocodeData.responseData(self)
+			}
+		  sendGeocode.xhr.onerror = function(e) {
+		   alert("There will be errors!");
+		  };
 		}
 	};
 
@@ -92,11 +83,12 @@
 	//handling the on error request and passing an alert
 	var geocodeData = {
 	   responseString: "0",
-	   responseData: function(){
-	     sendGeocode.xhr.onload = function(e) {
-		   var response = JSON.parse(this.responseText);
+	   responseData: function(self){
+		   var response = JSON.parse(self.responseText);
+		}
+	};
 
-		   var rows = [];
+	   var rows = [];
 			 response.results.forEach(function(result){
 			 	rows.push(Alloy.createController('row', {
 			 		mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
@@ -109,12 +101,5 @@
 			 });
 
 			 $.dealTable.setData(rows);
-
-		 };
-	     sendGeocode.xhr.onerror = function(e) {
-		   alert("There will be errors!");
-		};
-		}
-	};
 
 	$.index.open();
