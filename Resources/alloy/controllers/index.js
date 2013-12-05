@@ -1,7 +1,7 @@
 function Controller() {
     function doClick() {
         deviceLocation.getLocation();
-        sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
+        sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
     }
     function openMap(e) {
         var url = e.row.mapUrl;
@@ -81,67 +81,79 @@ function Controller() {
     openMap ? $.__views.dealTable.addEventListener("click", openMap) : __defers["$.__views.dealTable!click!openMap"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    deviceLocation = {
+    var locationValues = {
         lastLocation: {
             latitude: 0,
-            longitude: 0,
-            speed: 0,
-            timestamp: 1385426498331
-        },
-        getLocation: function() {
-            if (Ti.Geolocation.locationServicesEnabled) {
-                Titanium.Geolocation.purpose = "Get Current Location";
-                Titanium.Geolocation.getCurrentPosition(function(e) {
-                    if (e.error) Ti.API.error("Error: " + e.error); else {
-                        deviceLocation.lastLocation.longitude = e.coords.longitude;
-                        deviceLocation.lastLocation.latitude = e.coords.latitude;
-                    }
-                });
-            } else alert("Please enable location services");
+            longitude: 0
         },
         fakeLocation: {
             latitude: 37.7923852,
             longitude: -122.4024346
         }
     };
-    var sendGeocode = {
-        api_url: "http://sanfran-beer-finder.herokuapp.com/?",
-        xhr: Ti.Network.createHTTPClient(),
-        apiQueryParser: function(lat, lon) {
-            return "latitude=" + lat + "&longitude=" + lon;
+    var deviceLocation = {
+        getLocation: function() {
+            if (Ti.Geolocation.locationServicesEnabled) {
+                Titanium.Geolocation.purpose = "Get Current Location";
+                Titanium.Geolocation.getCurrentPosition(this.setLocation);
+            } else alert("Please enable location services");
         },
-        googleQueryParser: function(lat, lon) {
-            return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
-        },
-        sendLocation: function(phoneLatitude, phoneLongitude) {
-            queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude);
-            url = sendGeocode.api_url + queryString;
-            sendGeocode.xhr.open("GET", url);
-            sendGeocode.xhr.send();
-            geocodeData.responseData();
+        setLocation: function(e) {
+            if (e.error) Ti.API.error("Error" + e.error); else {
+                locationValues.lastLocation.longitude = e.coords.longitude;
+                locationValues.lastLocation.longitude = e.coords.longitude;
+            }
         }
     };
-    var geocodeData = {
-        responseString: "0",
-        responseData: function() {
+    var queryParser = {
+        api_url: "http://sanfran-beer-finder.herokuapp.com/?",
+        url: function(lat, lon) {
+            return queryParser.api_url + queryParser.api(lat, lon);
+        },
+        api: function(lat, lon) {
+            return "latitude=" + lat + "&longitude=" + lon;
+        },
+        google: function(lat, lon) {
+            return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
+        }
+    };
+    var sendGeocode = {
+        xhr: Ti.Network.createHTTPClient(),
+        sendLocation: function(phoneLatitude, phoneLongitude) {
+            sendGeocode.xhr.open("GET", queryParser.url(phoneLatitude, phoneLongitude));
+            sendGeocode.xhr.send();
             sendGeocode.xhr.onload = function() {
-                var response = JSON.parse(this.responseText);
-                var rows = [];
-                response.results.forEach(function(result) {
-                    rows.push(Alloy.createController("row", {
-                        mapUrl: sendGeocode.googleQueryParser(result.coordinate[0], result.coordinate[1]),
-                        name: result.name,
-                        product: result.product,
-                        price: result.price,
-                        address: result.address,
-                        discount: result.discount
-                    }).getView());
-                });
-                $.dealTable.setData(rows);
+                var self = this;
+                geocodeData.responseData(self);
             };
             sendGeocode.xhr.onerror = function() {
                 alert("There will be errors!");
             };
+        }
+    };
+    var geocodeData = {
+        response: "0",
+        responseData: function(self) {
+            console.log("test for getting responseData");
+            var serverData = JSON.parse(self.responseText);
+            geocodeData.response = serverData;
+            displayDeals.test();
+        }
+    };
+    displayDeals = {
+        test: function() {
+            var rows = [];
+            geocodeData.response.results.forEach(function(result) {
+                rows.push(Alloy.createController("row", {
+                    mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
+                    name: result.name,
+                    product: result.product,
+                    price: result.price,
+                    address: result.address,
+                    discount: result.discount
+                }).getView());
+            });
+            $.dealTable.setData(rows);
         }
     };
     $.index.open();
