@@ -70,6 +70,10 @@ function Controller() {
     $.__views.index.add($.__views.dealTable);
     openMap ? $.__views.dealTable.addEventListener("click", openMap) : __defers["$.__views.dealTable!click!openMap"] = true;
     $.__views.endFrame = Ti.UI.createView({
+        backgroundColor: "#999999",
+        width: "100%",
+        height: "60dp",
+        bottom: "0dp",
         id: "endFrame"
     });
     $.__views.index.add($.__views.endFrame);
@@ -129,6 +133,7 @@ function Controller() {
             sendGeocode.xhr.onload = function() {
                 var self = this;
                 geocodeData.responseData(self);
+                displayDeals.dataToRows();
             };
             sendGeocode.xhr.onerror = function() {
                 alert("There will be errors!");
@@ -138,14 +143,12 @@ function Controller() {
     var geocodeData = {
         response: "0",
         responseData: function(self) {
-            console.log("test for getting responseData");
             var serverData = JSON.parse(self.responseText);
             geocodeData.response = serverData;
-            displayDeals.test();
         }
     };
-    displayDeals = {
-        test: function() {
+    var displayDeals = {
+        dataToRows: function() {
             var rows = [];
             geocodeData.response.results.forEach(function(result) {
                 rows.push(Alloy.createController("row", {

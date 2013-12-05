@@ -44,3 +44,9 @@
   height: '50dp',
   top: '220dp'
 },
+"#endFrame": {
+	backgroundColor: "#999999",
+	width:'100%',
+	height: '55dp',
+	bottom: '0dp'
+}
