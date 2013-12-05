@@ -6,3 +6,68 @@ App: Titanium App part of our project. Acting as the interface between our servi
 This app will show users the locations of the nearest and bestest booze deals!
 
 The Titanium framework has been used to create a native Android application. It gets data on discounts and deals from the Rails API, which is the other half of the project.
+
+
+Setting up TiShadow
+
+Follow the EXACT steps of this tutorial:
+http://www.stephenfeather.com/blog/tishadow-getting-started-part-2/
+
+Tishadow download:
+https://github.com/dbankier/TiShadow
+
+App Id:
+
+You have to make on up
+Make sure to follow the java naming convention e.g.
+"com.something.else"
+
+
+
+Setting up Jasmine
+
+Your Action:
+Add "spec" folder to  project root
+Add spec testing files ending with _spec.js in that very folder
+Titanium does not need you to require files other than Alloy:
+Add the following before your actual tests: 
+______
+var Alloy = require("alloy");
+  var $;
+  beforeEach(function() {
+     // create the index controller before executing the
+     // "can create and destroy" test suite.
+     $ = Alloy.createController("index");
+  });
+_____
+
+
+Source: 
+http://www.yydigital.com/blog/2013/2/14/Testing_Alloy_With_Jasmine_And_TiShadow
+
+Running tests:
+
+STeps:
+- run the tishadow server in one terminal window calling:
+tishadow server
+- open titanium and run the latest version (currently 4) of your android emulator. 
+- the tishadow app will open up in the emulator and prompt you to connect to your server: 
+
+This is how you could be finding your IP
+http://www.wikihow.com/Find-Your-IP-Address-on-a-Mac
+
+- enteryour id and click connect
+- now open another terminal/shell (wINDOW/TAB)
+go to your apps root directory folder and type in the following command:
+tishadow run
+
+- You should see the server loading your app inside the tishadowapp within the emulator, sweeet.
+ 
+ Testing, finally!!!
+ At this point, (you have a spec folder, with a few tests in your apps root folder) you get to type in the
+ magic words to run your Jasmine tests:
+ "tishadow spec"
+ Your tests are running and displaying feedback in both terminal windows: server and project root. 
+
+ That was a hurdle, but hey, you get to write tests and make your code awesome :)
+
