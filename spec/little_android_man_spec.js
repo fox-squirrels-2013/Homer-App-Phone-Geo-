@@ -15,12 +15,14 @@ describe("Single Model Test Suite", function() {
     });
   });
 
-  describe("setLocation", function() {
-    describe("getLocation calls setLocation", function() {
-      it("calls the setLocation function", function() { 
-        spyOn(deviceLocation, "getLocation");
+  describe("getLocation", function() {
+    describe("calls setLocation", function() {
+      it("calls the setLocation function", function() {
+        spyOn(Ti.Geolocation, 'locationServicesEnabled').andReturn(true);
+        spyOn(Titanium.Geolocation, 'getCurrentPosition'); 
+        spyOn(deviceLocation, "setLocation");
         deviceLocation.getLocation()
-        expect(deviceLocation.setLocation).toHaveBeenCalled().once()
+        expect(Titanium.Geolocation.getCurrentPosition).toHaveBeenCalledWith(setLocation);
       });
     });
   }); 

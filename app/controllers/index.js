@@ -1,7 +1,7 @@
 	function doClick(e) {
 		deviceLocation.getLocation();
 		// sendGeocode.sendLocation(deviceLocation.lastLocation.latitude, deviceLocation.lastLocation.longitude)
-	    sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
+	   sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
 	}
 
 	function openMap(e){
@@ -24,9 +24,8 @@
 		getLocation: function() {
 			if (Ti.Geolocation.locationServicesEnabled) {
 				Titanium.Geolocation.purpose = 'Get Current Location';
-				Titanium.Geolocation.getCurrentPosition(function(this.setLocation) {
-			} 
-			else {
+				Titanium.Geolocation.getCurrentPosition(this.setLocation);
+			} else {
 				alert('Please enable location services');
 			}
 		},
