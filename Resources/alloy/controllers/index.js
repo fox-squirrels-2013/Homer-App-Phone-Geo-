@@ -1,7 +1,7 @@
 function Controller() {
     function doClick() {
         deviceLocation.getLocation();
-        sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
+        sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
     }
     function openMap(e) {
         var url = e.row.mapUrl;
@@ -81,13 +81,17 @@ function Controller() {
     openMap ? $.__views.dealTable.addEventListener("click", openMap) : __defers["$.__views.dealTable!click!openMap"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    deviceLocation = {
+    var locationValues = {
         lastLocation: {
             latitude: 0,
-            longitude: 0,
-            speed: 0,
-            timestamp: 1385426498331
+            longitude: 0
         },
+        fakeLocation: {
+            latitude: 37.7923852,
+            longitude: -122.4024346
+        }
+    };
+    var deviceLocation = {
         getLocation: function() {
             if (Ti.Geolocation.locationServicesEnabled) {
                 Titanium.Geolocation.purpose = "Get Current Location";
@@ -96,13 +100,9 @@ function Controller() {
         },
         setLocation: function(e) {
             if (e.error) Ti.API.error("Error" + e.error); else {
-                deviceLocation.lastLocation.longitude = e.coords.longitude;
-                deviceLocation.lastLocation.longitude = e.coords.longitude;
+                locationValues.lastLocation.longitude = e.coords.longitude;
+                locationValues.lastLocation.longitude = e.coords.longitude;
             }
-        },
-        fakeLocation: {
-            latitude: 37.7923852,
-            longitude: -122.4024346
         }
     };
     var sendGeocode = {

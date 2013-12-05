@@ -1,7 +1,7 @@
 	function doClick(e) {
 		deviceLocation.getLocation();
-		// sendGeocode.sendLocation(deviceLocation.lastLocation.latitude, deviceLocation.lastLocation.longitude)
-	    sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
+		// sendGeocode.sendLocation(locationValues.lastLocation.latitude, locationValues.lastLocation.longitude)
+	    sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
 	}
 
 	function openMap(e){
@@ -20,13 +20,18 @@
 // get the current location
 // Setlocation is setting the values to lastLocation
 
-	deviceLocation = {
+
+	var locationValues = {
 		lastLocation: {
 			"latitude" : 0,
-			"longitude" : 0,
-			"speed" : 0,
-			"timestamp" : 1385426498331
+			"longitude" : 0
 		},
+		fakeLocation : {
+			"latitude" : 37.7923852,
+			"longitude" : -122.4024346
+		}
+	}
+	var deviceLocation = {
 		getLocation: function() {
 			if (Ti.Geolocation.locationServicesEnabled) {
 				Titanium.Geolocation.purpose = 'Get Current Location';
@@ -40,14 +45,10 @@
 				Ti.API.error('Error' + e.error)
 			}
 			else {
-				deviceLocation.lastLocation.longitude = e.coords.longitude
-				deviceLocation.lastLocation.longitude = e.coords.longitude
+				locationValues.lastLocation.longitude = e.coords.longitude
+				locationValues.lastLocation.longitude = e.coords.longitude
 			}
 		},
-		fakeLocation : {
-			"latitude" : 37.7923852,
-			"longitude" : -122.4024346
-		}
 	};
 
 
