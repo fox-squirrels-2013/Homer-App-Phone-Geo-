@@ -91,13 +91,14 @@ function Controller() {
         getLocation: function() {
             if (Ti.Geolocation.locationServicesEnabled) {
                 Titanium.Geolocation.purpose = "Get Current Location";
-                Titanium.Geolocation.getCurrentPosition(function(e) {
-                    if (e.error) Ti.API.error("Error: " + e.error); else {
-                        deviceLocation.lastLocation.longitude = e.coords.longitude;
-                        deviceLocation.lastLocation.latitude = e.coords.latitude;
-                    }
-                });
+                Titanium.Geolocation.getCurrentPosition(this.setLocation);
             } else alert("Please enable location services");
+        },
+        setLocation: function(e) {
+            if (e.error) Ti.API.error("Error" + e.error); else {
+                deviceLocation.lastLocation.longitude = e.coords.longitude;
+                deviceLocation.lastLocation.longitude = e.coords.longitude;
+            }
         },
         fakeLocation: {
             latitude: 37.7923852,

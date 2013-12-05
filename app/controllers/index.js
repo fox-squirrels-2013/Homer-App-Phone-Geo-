@@ -13,6 +13,12 @@
 		win.open({modal:true})
 	}
 
+//deviceLocation
+// sets the last location
+// instatiates the location values
+// stores a fake location
+// get the current location
+// Setlocation is setting the values to lastLocation
 
 	deviceLocation = {
 		lastLocation: {
@@ -24,8 +30,7 @@
 		getLocation: function() {
 			if (Ti.Geolocation.locationServicesEnabled) {
 				Titanium.Geolocation.purpose = 'Get Current Location';
-				Titanium.Geolocation.getCurrentPosition(function(this.setLocation) {
-			} 
+        		Titanium.Geolocation.getCurrentPosition(this.setLocation)}
 			else {
 				alert('Please enable location services');
 			}
@@ -36,14 +41,26 @@
 			}
 			else {
 				deviceLocation.lastLocation.longitude = e.coords.longitude
-				deviceLocation.lastLocation.longitude = e.coords.longitude	
+				deviceLocation.lastLocation.longitude = e.coords.longitude
 			}
-		},		
+		},
 		fakeLocation : {
 			"latitude" : 37.7923852,
 			"longitude" : -122.4024346
 		}
 	};
+
+
+//sendGeocode
+// sets the url to use for  our api call
+//creates an HHTP request
+//formats the query string
+//formatting the googlequery string for the map
+//concatenating the url with query string
+//sending the client
+//calling the response data
+
+
 
 	var sendGeocode = {
 		api_url : "http://sanfran-beer-finder.herokuapp.com/?",
@@ -62,6 +79,13 @@
 			geocodeData.responseData();
 		}
 	};
+
+	//geocodeData
+	//formatting the response of a succesful xhr request
+	//Receiving the response
+	//pushing the values into rows
+	//inserting the rows into the dealTable
+	//handling the on error request and passing an alert
 	var geocodeData = {
 	   responseString: "0",
 	   responseData: function(){
@@ -87,9 +111,6 @@
 		   alert("There will be errors!");
 		};
 		}
-	};
-	var displayData = {
-
 	};
 
 	$.index.open();
