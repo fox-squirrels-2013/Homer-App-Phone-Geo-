@@ -4,6 +4,30 @@
 	    sendGeocode.sendLocation(deviceLocation.fakeLocation.latitude, deviceLocation.fakeLocation.longitude);
 	}
 
+	test = {
+		findalec: function(){
+			return 1;
+		};
+	};
+
+	sendGeocode = {
+		api_url: "http://sanfran-beer-finder.herokuapp.com/?",
+		xhr: Ti.Network.createHTTPClient(),
+		apiQueryParser: function(lat, lon){
+			return "latitude=" + lat + "&longitude=" + lon;
+		},
+		googleQueryParser: function(lat, lon){
+			return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
+		},
+		sendLocation: function(phoneLatitude, phoneLongitude) {
+			queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude)
+			url = sendGeocode.api_url + queryString
+			sendGeocode.xhr.open('GET', url);
+			sendGeocode.xhr.send();
+			geocodeData.responseData();
+		}
+	};
+
 	function openMap(e){
 		var url = (e.row.mapUrl)
 		var webview = Ti.UI.createWebView()
@@ -24,9 +48,8 @@
 		getLocation: function() {
 			if (Ti.Geolocation.locationServicesEnabled) {
 				Titanium.Geolocation.purpose = 'Get Current Location';
-				Titanium.Geolocation.getCurrentPosition(function(this.setLocation) {
-			} 
-			else {
+				Titanium.Geolocation.getCurrentPosition(this.setLocation)
+			} else {
 				alert('Please enable location services');
 			}
 		},
@@ -42,26 +65,11 @@
 		fakeLocation : {
 			"latitude" : 37.7923852,
 			"longitude" : -122.4024346
-		}
+		};
 	};
 
-	var sendGeocode = {
-		api_url : "http://sanfran-beer-finder.herokuapp.com/?",
-		xhr : Ti.Network.createHTTPClient(),
-		apiQueryParser: function(lat, lon){
-			return "latitude=" + lat + "&longitude=" + lon;
-		},
-		googleQueryParser: function(lat, lon){
-			return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
-		},
-		sendLocation : function(phoneLatitude, phoneLongitude) {
-			queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude)
-			url = sendGeocode.api_url + queryString
-			sendGeocode.xhr.open('GET', url);
-			sendGeocode.xhr.send();
-			geocodeData.responseData();
-		}
-	};
+
+	
 	var geocodeData = {
 	   responseString: "0",
 	   responseData: function(){

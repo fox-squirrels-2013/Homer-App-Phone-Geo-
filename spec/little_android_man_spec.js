@@ -15,9 +15,18 @@ describe("Single Model Test Suite", function() {
     });
   });
 
+   describe("find alec", function(){
+    describe("findalec", function(){
+    it("alec connects", function(){
+      test.findalec();
+      expect(test.findalec).toHaveBeenCalled()
+      });
+    });
+  }); 
+
   describe("setLocation", function() {
     describe("getLocation calls setLocation", function() {
-      it("calls the setLocation function", function() { 
+      xit("calls the setLocation function", function() { 
         spyOn(deviceLocation, "getLocation");
         deviceLocation.getLocation()
         expect(deviceLocation.setLocation).toHaveBeenCalled().once()
