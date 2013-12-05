@@ -105,19 +105,22 @@ function Controller() {
             }
         }
     };
-    var sendGeocode = {
+    var queryParser = {
         api_url: "http://sanfran-beer-finder.herokuapp.com/?",
-        xhr: Ti.Network.createHTTPClient(),
-        apiQueryParser: function(lat, lon) {
+        url: function(lat, lon) {
+            return queryParser.api_url + queryParser.api(lat, lon);
+        },
+        api: function(lat, lon) {
             return "latitude=" + lat + "&longitude=" + lon;
         },
-        googleQueryParser: function(lat, lon) {
+        google: function(lat, lon) {
             return "https://maps.google.com/maps?q=" + lat + ",+" + lon;
-        },
+        }
+    };
+    var sendGeocode = {
+        xhr: Ti.Network.createHTTPClient(),
         sendLocation: function(phoneLatitude, phoneLongitude) {
-            queryString = sendGeocode.apiQueryParser(phoneLatitude, phoneLongitude);
-            url = sendGeocode.api_url + queryString;
-            sendGeocode.xhr.open("GET", url);
+            sendGeocode.xhr.open("GET", queryParser.url(phoneLatitude, phoneLongitude));
             sendGeocode.xhr.send();
             geocodeData.responseData();
         }
@@ -130,7 +133,7 @@ function Controller() {
                 var rows = [];
                 response.results.forEach(function(result) {
                     rows.push(Alloy.createController("row", {
-                        mapUrl: sendGeocode.googleQueryParser(result.coordinate[0], result.coordinate[1]),
+                        mapUrl: queryParser.google(result.coordinate[0], result.coordinate[1]),
                         name: result.name,
                         product: result.product,
                         price: result.price,

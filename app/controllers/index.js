@@ -12,15 +12,6 @@
 		win.add(webview)
 		win.open({modal:true})
 	}
-
-//deviceLocation
-// sets the last location **
-// instatiates the location values
-// stores a fake location
-// get the current location
-// Setlocation is setting the values to lastLocation
-
-
 	var locationValues = {
 		lastLocation: {
 			"latitude" : 0,
@@ -52,15 +43,6 @@
 	};
 
 
-//sendGeocode
-// sets the url to use for  our api call
-//creates an HHTP request
-//formats the query string
-//formatting the googlequery string for the map
-//concatenating the url with query string
-//sending the client
-//calling the response data
-
 //Parsing Object
 //object for the XhR request
    //Include a xhr onload and error
@@ -69,6 +51,10 @@
 
 
   var queryParser = {
+  	api_url: "http://sanfran-beer-finder.herokuapp.com/?",
+  	url: function(lat, lon){
+  		return queryParser.api_url + queryParser.api(lat, lon)
+  	},
   	api: function(lat, lon){
 			return "latitude=" + lat + "&longitude=" + lon;
 		},
@@ -77,17 +63,26 @@
 		}
   }
 
+
+  	//sendGeocode
+// sets the url to use for  our api call
+//creates an HHTP request
+//formats the query string
+//formatting the googlequery string for the map
+//concatenating the url with query string
+//sending the client
+//calling the response data
+
+
 	var sendGeocode = {
-		api_url : "http://sanfran-beer-finder.herokuapp.com/?",
-		xhr : Ti.Network.createHTTPClient(),
-		sendLocation : function(phoneLatitude, phoneLongitude) {
-			queryString = queryParser.api(phoneLatitude, phoneLongitude)
-			url = sendGeocode.api_url + queryString
-			sendGeocode.xhr.open('GET', url);
+		xhr: Ti.Network.createHTTPClient(),
+		sendLocation: function(phoneLatitude, phoneLongitude) {
+			sendGeocode.xhr.open('GET', queryParser.url(phoneLatitude, phoneLongitude));
 			sendGeocode.xhr.send();
 			geocodeData.responseData();
 		}
 	};
+
 
 	//geocodeData
 	//formatting the response of a succesful xhr request
