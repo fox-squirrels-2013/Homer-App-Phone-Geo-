@@ -60,16 +60,6 @@ function Controller() {
         textAlign: "TI.UI.TEXT_ALIGNMENT_LEFT"
     });
     $.__views.middleframe.add($.__views.Personalized);
-    $.__views.Button = Ti.UI.createImageView({
-        right: "100dp",
-        width: "30dp",
-        top: "150dp",
-        height: "30dp",
-        id: "Button",
-        image: "/images/refresh.png"
-    });
-    $.__views.middleframe.add($.__views.Button);
-    doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
     $.__views.dealTable = Ti.UI.createTableView({
         width: Ti.UI.SIZE,
         height: Ti.UI.SIZE,
@@ -79,6 +69,20 @@ function Controller() {
     });
     $.__views.index.add($.__views.dealTable);
     openMap ? $.__views.dealTable.addEventListener("click", openMap) : __defers["$.__views.dealTable!click!openMap"] = true;
+    $.__views.endFrame = Ti.UI.createView({
+        id: "endFrame"
+    });
+    $.__views.index.add($.__views.endFrame);
+    $.__views.Button = Ti.UI.createImageView({
+        right: "100dp",
+        width: "136dp",
+        bottom: "5dp",
+        height: "42dp",
+        id: "Button",
+        image: "/images/beerme.png"
+    });
+    $.__views.endFrame.add($.__views.Button);
+    doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
     var locationValues = {
@@ -157,8 +161,8 @@ function Controller() {
         }
     };
     $.index.open();
-    __defers["$.__views.Button!click!doClick"] && $.__views.Button.addEventListener("click", doClick);
     __defers["$.__views.dealTable!click!openMap"] && $.__views.dealTable.addEventListener("click", openMap);
+    __defers["$.__views.Button!click!doClick"] && $.__views.Button.addEventListener("click", doClick);
     _.extend($, exports);
 }
 

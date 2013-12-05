@@ -28,9 +28,9 @@
 },
 "#Button": {
   right: '100dp',
-  width: '30dp',
-  top: '150dp',
-  height: '30dp'
+  width: '136dp',
+  bottom: '5dp',
+  height: '42dp'
 },
 "#dealTable": {
   width: Ti.UI.SIZE,
