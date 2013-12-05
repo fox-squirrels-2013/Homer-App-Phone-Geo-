@@ -57,7 +57,6 @@ var queryParser = {
 	}
 }
 
-
 var sendGeocode = {
 	xhr: Ti.Network.createHTTPClient(),
 	sendLocation: function(phoneLatitude, phoneLongitude) {
