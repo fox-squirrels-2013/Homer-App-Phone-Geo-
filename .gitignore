@@ -4,3 +4,8 @@ build
 npm-debug.log
 tmp
 .map
+.fastdev.lock
+
+
+Resources/alloy/controllers/*
+Resources/alloy/styles/*
