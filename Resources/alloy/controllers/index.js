@@ -28,7 +28,7 @@ function Controller() {
     var exports = {};
     var __defers = {};
     $.__views.index = Ti.UI.createWindow({
-        backgroundColor: "#BDBDBD",
+        backgroundColor: "#E1E1E1",
         navBarHidden: true,
         id: "index"
     });
@@ -37,24 +37,32 @@ function Controller() {
         width: "500dp",
         height: "35dp",
         top: "0dp",
-        backgroundColor: "white",
+        backgroundColor: "#2EA5D7",
         id: "header"
     });
     $.__views.index.add($.__views.header);
+    $.__views.headerText = Ti.UI.createLabel({
+        textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+        font: {
+            fontFamily: "Roboto",
+            fontSize: "18dp",
+            fontWeight: "bold"
+        },
+        text: "BeerMe",
+        id: "headerText",
+        color: "white"
+    });
+    $.__views.header.add($.__views.headerText);
     $.__views.middleframe = Ti.UI.createView({
-        width: "500dp",
-        height: "180dp",
-        top: "35dp",
-        backgroundColor: "white",
         id: "middleframe"
     });
     $.__views.index.add($.__views.middleframe);
     $.__views.image = Ti.UI.createImageView({
-        top: "0dp",
+        top: "100dp",
         width: "320dp",
         height: "150dp",
         id: "image",
-        image: "/images/beerscreen.png"
+        image: "/images/homer.png"
     });
     $.__views.middleframe.add($.__views.image);
     $.__views.activityIndicator = Ti.UI.createActivityIndicator({
@@ -72,15 +80,15 @@ function Controller() {
     $.__views.index.add($.__views.dealTable);
     openMap ? $.__views.dealTable.addEventListener("click", openMap) : __defers["$.__views.dealTable!click!openMap"] = true;
     $.__views.endFrame = Ti.UI.createView({
-        backgroundColor: "#999999",
+        backgroundColor: "#333333",
         width: "100%",
-        height: "55dp",
+        height: "52dp",
         bottom: "0dp",
         id: "endFrame"
     });
     $.__views.index.add($.__views.endFrame);
     $.__views.Button = Ti.UI.createImageView({
-        right: "100dp",
+        right: "90dp",
         width: "136dp",
         bottom: "5dp",
         height: "42dp",

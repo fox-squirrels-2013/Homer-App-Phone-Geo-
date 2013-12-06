@@ -1,8 +1,8 @@
 <Alloy>
   <Window class="container">
-   <View id="header">Homer</View>
+   <View id="header"><Label id="headerText" color="white">BeerMe</Label></View>
      <View id="middleframe">
-      <ImageView id="image" image="/images/beerscreen.png"></ImageView>
+      <ImageView id="image" image="/images/homer.png"></ImageView>
       
      </View>
    <ActivityIndicator id="activityIndicator" message="Loading..."/>  

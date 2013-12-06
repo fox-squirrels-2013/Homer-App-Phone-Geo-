@@ -1,23 +1,25 @@
 ".container": {
-  backgroundColor:"#BDBDBD",
+  backgroundColor: "#E1E1E1",
   navBarHidden: true
 },
-
+"#headerText":{
+  textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+  font: {
+    fontFamily:'Roboto',
+    fontSize: '18dp',
+    fontWeight: 'bold'
+  }
+}
 "#header":{
   width: '500dp',
   height: '35dp',
   top: '0dp',
-  backgroundColor: "white"
-},
- "#middleframe": {
-  width: '500dp',
-  height: '180dp',
-  top: '35dp',
-  backgroundColor: "white"
+  backgroundColor: "#2EA5D7",
+
 },
 
 "#image": {
- top: '0dp',
+ top: '100dp',
  width: '320dp',
  height: '150dp',
 },
@@ -27,7 +29,7 @@
   left: '100dp'
 },
 "#Button": {
-  right: '100dp',
+  right: '90dp',
   width: '136dp',
   bottom: '5dp',
   height: '42dp'
@@ -45,8 +47,8 @@
   top: '220dp'
 },
 "#endFrame": {
-	backgroundColor: "#999999",
-	width:'100%',
-	height: '55dp',
-	bottom: '0dp'
+  backgroundColor: "#333333",
+  width:'100%',
+  height: '52dp',
+  bottom: '0dp'
 }
