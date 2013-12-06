@@ -1,9 +1,14 @@
 function Controller() {
     function doClick() {
+        function loadingAnimation() {
+            loaderImage.image = "/images/loaderSequence/frame" + loaderIndex + ".png";
+            loaderIndex++;
+            6 === loaderIndex && (loaderIndex = 1);
+        }
         deviceLocation.getLocation();
-        var win = Ti.UI.createWindow();
-        win.add(activityIndicator);
-        activityIndicator.show();
+        $.dealTable.add(loaderImage);
+        var loaderIndex = 1;
+        setInterval(loadingAnimation, 80);
         sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
     }
     function openMap(e) {
@@ -88,6 +93,12 @@ function Controller() {
     doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var loaderImage = Ti.UI.createImageView({
+        top: "300dp",
+        left: "100dp",
+        width: 200,
+        height: 200
+    });
     var locationValues = {
         lastLocation: {
             latitude: 0,
@@ -146,7 +157,7 @@ function Controller() {
             geocodeData.response = serverData;
         }
     };
-    var activityIndicator = Ti.UI.createActivityIndicator({
+    Ti.UI.createActivityIndicator({
         color: "green",
         font: {
             fontFamily: "Helvetica Neue",
@@ -172,6 +183,7 @@ function Controller() {
                     discount: result.discount
                 }).getView());
             });
+            loaderImage.hide();
             $.dealTable.setData(rows);
         }
     };

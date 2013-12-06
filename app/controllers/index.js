@@ -1,13 +1,47 @@
 function doClick(e) {
 	deviceLocation.getLocation();
-	var win = Ti.UI.createWindow()
-	win.add(activityIndicator);
-	activityIndicator.show();
+	// loaderImage.image = "/images/loaderSequence/frame1.png"
+	$.dealTable.add(loaderImage)
+
+	var loaderArrayLength=5;
+	var loaderIndex=1;
 	
+	function loadingAnimation() {
+	loaderImage.image = ("/images/loaderSequence/frame" + loaderIndex + ".png");
+	loaderIndex++;
+	if(loaderIndex===6)loaderIndex=1;
+	}
+	var loaderAnimate = setInterval(loadingAnimation,80);
+	// ************************************
+	// var win = Ti.UI.createWindow()
+	// var loaderImage = Ti.UI.createImageView({
+ //  	width:200,
+ //  	height:200
+	// });
+	// win.add(loaderImage);
+	// var loaderArrayLength=5;
+	// var loaderIndex=1;
+	// function loadingAnimation() {
+	// loaderImage.image = "images/loader-sequence/frame" + loaderIndex + ".png";
+	// loaderIndex++;
+	// if(loaderIndex===6)loaderIndex=1;
+	// }
+	// var loaderAnimate = setInterval(loadingAnimation,80);
+	// win.open();
+
+
 	// sendGeocode.sendLocation(locationValues.lastLocation.latitude, locationValues.lastLocation.longitude)
     sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
 	
+
 }
+
+var loaderImage = Ti.UI.createImageView({
+  	top: "300dp",
+  	left: "100dp",
+  	width:200,
+  	height:200
+	});
 
 function openMap(e){
 	var url = (e.row.mapUrl)
@@ -111,7 +145,9 @@ var displayDeals = {
 					discount: result.discount
 				}).getView());
 			});
+		loaderImage.hide()
 		$.dealTable.setData(rows);
+		
 	}
 };
 
