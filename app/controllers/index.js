@@ -1,17 +1,19 @@
+var loaderArrayLength=5;
+	var loaderIndex=1;
+function loadingAnimation() {
+	loaderImage.image = ("/images/loaderSequence/frame" + loaderIndex + ".png");
+	loaderIndex++;
+	if(loaderIndex===6)loaderIndex=1;
+	}
+	var loaderAnimate = setInterval(loadingAnimation,500);
+
+
 function doClick(e) {
 	deviceLocation.getLocation();
 	// loaderImage.image = "/images/loaderSequence/frame1.png"
 	$.dealTable.add(loaderImage)
 
-	var loaderArrayLength=5;
-	var loaderIndex=1;
-	
-	function loadingAnimation() {
-	loaderImage.image = ("/images/loaderSequence/frame" + loaderIndex + ".png");
-	loaderIndex++;
-	if(loaderIndex===6)loaderIndex=1;
-	}
-	var loaderAnimate = setInterval(loadingAnimation,80);
+
 	// ************************************
 	// var win = Ti.UI.createWindow()
 	// var loaderImage = Ti.UI.createImageView({
@@ -37,10 +39,10 @@ function doClick(e) {
 }
 
 var loaderImage = Ti.UI.createImageView({
-  	top: "300dp",
-  	left: "100dp",
-  	width:200,
-  	height:200
+  	top: "0dp",
+  	left: "0dp",
+  	width: "300dp",
+  	height: "300dp"
 	});
 
 function openMap(e){

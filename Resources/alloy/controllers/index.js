@@ -1,14 +1,12 @@
 function Controller() {
+    function loadingAnimation() {
+        loaderImage.image = "/images/loaderSequence/frame" + loaderIndex + ".png";
+        loaderIndex++;
+        6 === loaderIndex && (loaderIndex = 1);
+    }
     function doClick() {
-        function loadingAnimation() {
-            loaderImage.image = "/images/loaderSequence/frame" + loaderIndex + ".png";
-            loaderIndex++;
-            6 === loaderIndex && (loaderIndex = 1);
-        }
         deviceLocation.getLocation();
         $.dealTable.add(loaderImage);
-        var loaderIndex = 1;
-        setInterval(loadingAnimation, 80);
         sendGeocode.sendLocation(locationValues.fakeLocation.latitude, locationValues.fakeLocation.longitude);
     }
     function openMap(e) {
@@ -93,11 +91,13 @@ function Controller() {
     doClick ? $.__views.Button.addEventListener("click", doClick) : __defers["$.__views.Button!click!doClick"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var loaderIndex = 1;
+    setInterval(loadingAnimation, 500);
     var loaderImage = Ti.UI.createImageView({
-        top: "300dp",
-        left: "100dp",
-        width: 200,
-        height: 200
+        top: "0dp",
+        left: "0dp",
+        width: "300dp",
+        height: "300dp"
     });
     var locationValues = {
         lastLocation: {
